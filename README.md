@@ -55,10 +55,10 @@ This project has the following contributors:
 
 |    | Contributor            | GitHub ID       |
 | -- | ---------------------- | ----------------|
-|  1 | Phadtare, Janvi        | janvi08         |
-|  2 | Mhatre, Kaksha         |                 |
-|  3 | Ganesh, Saail          | SaailGanesh     |
-|  4 | Pardeshi, Sourabh      | SourabhPardeshi |
+|  1 | Janvi Phadtare         | janvi08         |
+|  2 | Kaksha Mhatre          |                 |
+|  3 | Saail Ganesh           | SaailGanesh     |
+|  4 | Sourabh Pardeshi       | SourabhPardeshi |
 
 For a more detailed document on contributions see `CONTRIBUTING.md`.
 
