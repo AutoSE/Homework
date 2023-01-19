@@ -14,12 +14,15 @@ class Sym:
             if self.has[x] > self.most:
                 self.most,self.mode = self.has[x], x
     
+    def mid(self):
+        return self.mode
+    
     def div(self):
         def fun(p):
             return p * math.log(p, 2)   
         e = 0
-        for _, n in enumerate(self.has):
+        for n in self.has:
             if n > 0:
-                e = e-fun(n/self.n)
-        return e
+                e = e+fun(n/self.n)
+        return -e
 
