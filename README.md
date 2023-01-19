@@ -1,5 +1,6 @@
 
 # Homework 1
+[![DOI](https://zenodo.org/badge/589422049.svg)](https://zenodo.org/badge/latestdoi/589422049)
 [![Contributors][contributors]][contributors-url]
 [![last commit][last-commit]][last-commit-url]
 ![forks][forks]
