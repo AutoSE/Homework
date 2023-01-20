@@ -12,7 +12,8 @@ class Sym:
             self.n += 1
             self.has[x] = 1 + (self.has[x] if x in self.has else 0)
             if self.has[x] > self.most:
-                self.most,self.mode = self.has[x], x
+                self.most = self.has[x]
+                self.mode = x
     
     def mid(self):
         return self.mode
@@ -22,7 +23,6 @@ class Sym:
             return p * math.log(p, 2)   
         e = 0
         for n in self.has:
-            if n > 0:
-                e = e+fun(n/self.n)
+            e = e+fun(n/self.n)
         return -e
 
