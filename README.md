@@ -61,7 +61,7 @@ This project has the following contributors:
 |  3 | Saail Ganesh           | SaailGanesh     |
 |  4 | Sourabh Pardeshi       | SourabhPardeshi |
 
-For a more detailed document on contributions see `CONTRIBUTING.md`.
+For a more detailed document on contributions, see `CONTRIBUTING.md`.
 
 <hr />
 
