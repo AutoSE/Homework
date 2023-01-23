@@ -40,7 +40,7 @@ To run the program, you will need python 3.0 or higher.
    python setup.py install
    ```
    using a terminal.
-3. Change the directory to "test"
+3. Change the directory to "src/hw1"
 4. Run test.py
    ```
    python test.py
