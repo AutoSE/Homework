@@ -8,13 +8,14 @@ def settings(s):
 def rint(lo, hi):
     return math.floor(0.5 + rand(lo, hi))
 
-def rand(lo, hi):
-    lo, hi = (lo or 0), (hi or 1)
+def rand(lo=0, hi=1):
+    lo= lo
+    hi= hi 
     global Seed
     Seed = (16807 * Seed) % 2147483647
     return lo + (hi-lo) * Seed / 2147483647
 
-def rnd(n, nPlaces):
+def rnd(n, nPlaces=3    ):
     mult = 10**nPlaces 
     return math.floor(n * mult + 0.5) / mult
 
@@ -25,5 +26,8 @@ def fmt(sControl):
 def oo(t):
     print(t)
     return t
+
+def coerce(s):
+    return int(s) if s.isdigit() else s
 
 
