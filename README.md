@@ -46,7 +46,7 @@ To run the program, you will need python 3.0 or higher.
    python test.py
    ```
 ### Documentation
-To view documentation go to.
+To view documentation go to pydocs.
 
 <hr />
 
