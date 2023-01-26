@@ -20,11 +20,11 @@ def sym():
     return "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
 
 def num():
-    num = n.Num()
+    num_obj = n.Num()
     for k,x in enumerate([1,1,1,1,2,2,3]):
-        num.add(x)
-    egs['num'] = 11/7 == num.mid() and 0.787 == u.rnd(num.div())
-    return 11/7 == num.mid() and 0.787 == u.rnd(num.div())
+        num_obj.add(x)
+    egs['num'] = 11/7 == num_obj.mid() and 0.787 == u.rnd(num_obj.div())
+    return 11/7 == num_obj.mid() and 0.787 == u.rnd(num_obj.div())
 
 def csv_help(t):
     global line
