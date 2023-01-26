@@ -35,13 +35,8 @@ To run the program, you will need python 3.0 or higher.
    ```sh
    https://github.com/AutoSE/Homework.git
    ```
-2. Open the path where repository is present and run 
-   ```sh
-   python setup.py install
-   ```
-   using a terminal.
-3. Change the directory to "src/hw#number" such as src/hw1 or src/hw2
-4. Run main.py
+2. Change the directory to "src/hw#number" such as src/hw1 or src/hw2
+3. Run main.py
    ```
    python main.py -g all
    ```
