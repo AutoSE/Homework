@@ -32,14 +32,17 @@ def oo(t):
     return t
 
 def coerce(s):
-    if s == 'true':
+    if s=='true' or s=='True':
         return True
-    elif s == 'false':
+    elif s=='false' or s=='False':
         return False
     elif s.isdigit():
         return int(s)
-    elif '.' in s and s.replace('.','').isdigit():
-        return float(s)
+    elif '.' in s:
+        if s.replace('.','').isdigit():
+            return float(s)
+        else:
+            return s
     else:
         return s
 
