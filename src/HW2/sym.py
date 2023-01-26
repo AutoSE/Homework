@@ -15,10 +15,10 @@ class Sym:
             if self.has[x] > self.most:
                 self.most,self.mode = self.has[x],x
 
-    def mid(self,x):
+    def mid(self):
         return self.mode
 
-    def div(self,x):
+    def div(self):
         def fun(p):
             return p*math.log(p,2)
         e=0

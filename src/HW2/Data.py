@@ -28,6 +28,6 @@ class Data:
                 val=col.div()
             return col.rnd(val, nPlaces),col.txt
         if cols:
-            return kap(cols, fun)
+            return u.kap(cols, fun)
         else:
-            return kap(self.cols.y, fun)
+            return u.kap(self.cols.y, fun)
