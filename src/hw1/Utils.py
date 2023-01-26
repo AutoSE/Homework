@@ -8,9 +8,9 @@ def settings(s):
 def rint(lo, hi):
     return math.floor(0.5 + rand(lo, hi))
 
-def rand(lo=0, hi=1):
-    lo= lo
-    hi= hi 
+def rand(lo, hi):
+    lo= lo or 0
+    hi= hi or 1
     global Seed
     Seed = (16807 * Seed) % 2147483647
     return lo + (hi-lo) * Seed / 2147483647
