@@ -13,11 +13,11 @@ def the():
     return True
 
 def sym():
-    sym = s.Sym()
+    sym_obj = s.Sym()
     for k,x in enumerate(["a","a","a","a","b","b","c"]):
-        sym.add(x)
-    egs['sym'] = "a" == sym.mid() and 1.379 == u.rnd(sym.div())
-    return "a" == sym.mid() and 1.379 == u.rnd(sym.div())
+        sym_obj.add(x)
+    egs['sym'] = "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
+    return "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
 
 def num():
     num = n.Num()
