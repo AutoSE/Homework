@@ -4,6 +4,7 @@ import cli as c
 import sys
 def main():
     t.all()
+    print(c.the)
     saved, fails ={}, 0
     for k,v in c.cli(u.settings(c.help)).items():
         c.the[k]=v
