@@ -6,28 +6,23 @@ import Utils as u
 
 
 #sys.path.insert(0, os.getcwd())
-#print(os.getcwd())
-#print(sys.path)
-
-
+#egs[]=(os.getcwd())
+#egs[]=(sys.path)
 egs={}
 def the():
-  #print(c.the)
+  #egs[]=(c.the)
   return True
 
 def rand():
   num1,num2 = n.Num(),n.Num()
-  global seed1
-  seed1=c.the['seed']
-  
+  u.Seed=c.the['seed']
   for i in range(1,1001):
     num1.add(u.rand(0,1))
-  seed1=c.the['seed']
+  u.Seed=c.the['seed']
   
   for i in range(1,1001):
     num2.add(u.rand(0,1))
-  m1,m2 = u.rnd(num1.mid(),1) , u.rnd(num2.mid(),1)
-  
+  m1,m2 = u.rnd(num1.mid(),10) , u.rnd(num2.mid(),10)
   return m1==m2 and 0.5 == u.rnd(m1,1)
 
 def sym():
@@ -42,7 +37,8 @@ def num():
     num.add(x)
   return 11/7==num.mid() and 0.787==u.rnd(num.div(),3)
 
-print(the())
-print(rand())
-print(sym())
-print(num())
+def all():
+  egs['the']=the()
+  egs['rand']=rand()
+  egs['sym']=sym()
+  egs['num']=num()
