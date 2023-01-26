@@ -5,11 +5,14 @@ class Num:
     def __init__(self, at=None, txt=None):
         self.at, self.txt = at if at else 0, txt if txt else ""
         self.n, self.mu, self.m2 = 0,0,0
+        self.mu=0
+        self.n=0
         self.lo, self.hi = float("inf"), float("-inf")
         self.w = -1 if "-" in self.txt else 1 
 
     def add(self,n):
         if n != '?':
+            n=int(n)
             self.n = self.n + 1
             d = n - self.mu
             self.mu = self.mu + d/self.n
