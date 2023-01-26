@@ -5,7 +5,7 @@ import Utils as u
 import os
 
 egs={}
-global line
+
 
 def the():
     print(c.the)
@@ -27,6 +27,7 @@ def num():
     return 11/7 == num.mid() and 0.787 == u.rnd(num.div())
 
 def csv_help(t):
+    global line
     line += len(t)
 def csv():
     n=0
