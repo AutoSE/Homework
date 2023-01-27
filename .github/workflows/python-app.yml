@@ -37,3 +37,4 @@ jobs:
     - name: Testing
       run: |
         python src/hw1/test.py
+        python src/HW2/test2.py
