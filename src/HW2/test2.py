@@ -3,9 +3,10 @@ import num as n
 import sym as s
 import Utils as u
 import os
+import Data as d
 
 egs={}
-
+line=0
 
 def the():
     print(c.the)
@@ -28,19 +29,25 @@ def num():
 
 def csv_help(t):
     global line
+
     line += len(t)
+
 def csv():
     n=0
-    
     u.csv(c.the["file"],csv_help)
-    egs['csv'] = n == 8*399
-    return n == 8*399
+    egs['csv'] = line == 8*399
+    return line == 8*399
 
 def data():
-    pass
+    data = d.Data(c.the["file"])
+    return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
 
 def stats():
-    pass
+    data = d.Data(the['file'])
+    for k, cols in {'y' : data.cols.y, 'x' : data.cols.x }.items():
+        print(k, 'mid', data.stats('mid', cols, 2))
+        print(' ', 'div', data.stats('div', cols, 2))
+    return True
 
 
 

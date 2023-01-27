@@ -60,7 +60,7 @@ import re
 #default values
 help = "script.lua : an example script with help text and a test suite\n\n\
 -d --dump   on test failure, exit with stack dump = false\n\
--f --file with csv data = ../data/auto93.csv\n\
+-f --file with csv data = ../../etc/data/auto93.csv\n\
 -g --go start-up action = data\n\
 -h --help   show help   = false\n\
 -s --seed   random number seed  = 937162211\n\
