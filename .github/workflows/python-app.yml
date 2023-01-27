@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "Kaksha" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "Kaksha" ]
 
 permissions:
   contents: read
