@@ -43,7 +43,7 @@ def data():
     return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
 
 def stats():
-    data = d.Data(the['file'])
+    data = d.Data(c.the['file'])
     for k, cols in {'y' : data.cols.y, 'x' : data.cols.x }.items():
         print(k, 'mid', data.stats('mid', cols, 2))
         print(' ', 'div', data.stats('div', cols, 2))
@@ -51,11 +51,13 @@ def stats():
 
 
 
-print(the())
-print(sym())
-print(num())
-print(csv())
-print(egs)
+def all():
+  egs['the']=the()
+  egs['csv']=csv()
+  egs['data']=data()
+  egs['stats']=stats()
+  egs['sym']=sym()
+  egs['num']=num()
 
 
 

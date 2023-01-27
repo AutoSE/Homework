@@ -1,5 +1,5 @@
 import Utils as u
-import test as t
+import test2 as t
 import cli as c
 import sys
 def main():
