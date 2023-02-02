@@ -23,6 +23,7 @@ class Data:
     def clone(self, init):
         data=Data(self.cols.names)
         u.map(init,lambda x: data.add(x)) if init else u.map([],lambda x: data.add(x))
+        return data
 
     def stats(self, what, cols, nPlaces):
         def fun(k,col):
