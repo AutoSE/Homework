@@ -55,4 +55,4 @@ class Data:
         return (d/n)**(1/g.the["p"])
 
     def around(self, row1, rows=None, cols=None):
-        return sorted(list(map(lambda row2: {'row': row2, 'dist': self.dist(row1, row2, cols)}, rows or self.rows)),key=itemgetter('dist'))
+        return sorted(list(map(lambda row2: {'row': row2, 'dist': self.dist(row1, row2, cols or self.cols.x)}, rows or self.rows)),key= lambda k: k['dist'])
