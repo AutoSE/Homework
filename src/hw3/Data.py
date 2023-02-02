@@ -2,6 +2,9 @@ import Utils as u
 import Cols as c
 import cli as g
 import Row as r
+import num as n
+import math
+from operator import itemgetter
 class Data:
     def __init__(self, src):
         self.rows=[]
@@ -14,16 +17,14 @@ class Data:
 
     def add(self,t):
         if self.cols:
-            t=t if str(type(t))=='Row' else r.Row(t)
+            t=t if "Row" in str(type(t)) else r.Row(t)
             self.rows.append(t)
             self.cols.add(t)
         else:
             self.cols=c.Cols(t)
 
     def clone(self, init):
-        data=Data(self.cols.names)
-        u.map(init,lambda x: data.add(x)) if init else u.map([],lambda x: data.add(x))
-        return data
+        return self
 
     def stats(self, what, cols, nPlaces):
         def fun(k,col):
@@ -37,9 +38,21 @@ class Data:
         else:
             return u.kap(self.cols.y, fun)
 
+    def better(self, row1, row2):
+        s1,s2,ys,x,y=0,0,self.cols.y
+        for col in ys:
+            x=col.norm(row1.cells[col.at])
+            y=col.norm(row2.cells[col.at])
+            s1=s1-math.exp(col.w*(x-y)/len(ys))
+            s2=s2-math.exp(col.w*(y-x)/len(ys))
+            return s1/len(ys) < s2/len(ys)
+
     def dist(self, row1, row2, cols):
         n,d = 0,0
-        for _,col in (cols.items() if cols else  self.cols.x.items()):
+        for col in (cols if cols else  self.cols.x):
             n = n + 1
             d = d + col.dist(row1.cells[col.at], row2.cells[col.at])**g.the["p"]
         return (d/n)**(1/g.the["p"])
+
+    def around(self, row1, rows=None, cols=None):
+        return sorted(list(map(lambda row2: {'row': row2, 'dist': self.dist(row1, row2, cols)}, rows or self.rows)),key=itemgetter('dist'))
