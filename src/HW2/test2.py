@@ -44,20 +44,24 @@ def data():
 
 def stats():
     data = d.Data(c.the['file'])
-    for k, cols in {'y' : data.cols.y, 'x' : data.cols.x }.items():
-        print(k, 'mid', data.stats('mid', cols, 2))
-        print(' ', 'div', data.stats('div', cols, 2))
+    for k, cols in enumerate([data.cols.y,data.cols.x]):
+        if k==0:
+            k=='y'
+        else:
+            k=='x'
+        print(k, 'mid', str(data.stats('mid', cols, 2)))
+        print(' ', 'div',str(data.stats('div', cols, 2)))
     return True
 
 
 
 def all():
   egs['the']=the()
+  egs['sym']=sym()
+  egs['num']=num()
   egs['csv']=csv()
   egs['data']=data()
   egs['stats']=stats()
-  egs['sym']=sym()
-  egs['num']=num()
 
 
 

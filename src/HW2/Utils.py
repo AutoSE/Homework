@@ -72,10 +72,10 @@ def map(t, fun):
 
 def kap(t, fun):
     u={}
-    u={}
     for k,v in enumerate(t):
         v,k=fun(k,v)
         if k:
             u[k]=v
         else:
-            u[1+len(u)]=v
+            u[len(u)+1]=v
+    return u
