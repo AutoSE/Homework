@@ -150,12 +150,12 @@ TDD= red, green, refactor
     - Refactoring means functionality _stays the same_ but the resulting _code is simpler_.
 
 
-[^Karac]:  (2018)
+<!-- [^Karac]:  (2018)
  [What Do We (Really) Know about Test-Driven Development? ](https://www.researchgate.net/profile/Itir_Karac/publication/326239274_What_Do_We_Really_Know_about_Test-Driven_Development/links/5cee7550299bf1f881494cf6/What-Do-We-Really-Know-about-Test-Driven-Development.pdf)   
     Itir Karac and Burak Turhan
    TDD’s perceived superiority over, satm a test-last approach might have been due to the fact that most of the 
   experiments employed a coarse-grained test-last process closer to the waterfall
-  approach as a control group
+  approach as a control group -->
 
 
 TDD perhaps oversold [^Karac].
