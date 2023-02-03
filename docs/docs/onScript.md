@@ -5,13 +5,13 @@
 If you look at my code, there are some common things:
 
 
-- written in  a version control systems (Github)
-- undergoing continuous integration every time  I commit anything (e.g. resteting all scripts) 
+- Written in  a version control systems (Github)
+- Undergoing continuous integration every time  I commit anything (e.g. resteting all scripts) 
 - coded in LUA
-- an initial help string (from which I derive global settings)
+- An initial help string (from which I derive global settings)
   - this is used to drive a really simple way to control the code via command-line flags
-- a random number generator (which is initialized from one the settings in the help string)
-- a reader system that inputs CSV files with named columns
+- A random number generator (which is initialized from one the settings in the help string)
+- A reader system that inputs CSV files with named columns
   - this generated a data model of five classes seen in most of my code (DATA, ROW, COLS, NUM, SYM)
   - which is all in [next lecture](/docs/onData.md)
 
