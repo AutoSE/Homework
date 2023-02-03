@@ -11,11 +11,11 @@ The purpose of this project is to convert lua code to python. This Homework is f
 
 [Cluster](../onCluster) -->
 
-<a href="../onScript" target="_blank" rel="noreferrer">onScript</a>
+<a href="onScript" target="_blank" rel="noreferrer">onScript</a>
 
-<a href="../onData" target="_blank" rel="noreferrer">onData</a>
+<a href="onData" target="_blank" rel="noreferrer">onData</a>
 
-<a href="../onCluster" target="_blank" rel="noreferrer">onCluster</a>
+<a href="onCluster" target="_blank" rel="noreferrer">onCluster</a>
 
 ### Built With
 
