@@ -35,10 +35,10 @@ Applications:
    - Net effect 93% + .8*7 = 98.4% private,
    - And, FYI, inference on the tiny green+blue region was as effective as inference over all
 
-<img width=700 src="/etc/img/peters1.png">
+<!-- <img width=700 src="/etc/img/peters1.png"> -->
 
 
-<img width=700 src="/etc/img/peters2.png">
+<!-- <img width=700 src="/etc/img/peters2.png"> -->
 
 
 [^peters]: Peters, Fayola, Tim Menzies, and Lucas Layman.](https://www.ezzoterik.com/papers/15lace2.pdf)
@@ -336,7 +336,7 @@ Curse of dimensionality:
 
 
 ### Recursive Fastmap (the sampling way)
-<img align=right src="/etc/img/pca.png" width=500>
+<!-- <img align=right src="/etc/img/pca.png" width=500> -->
 
 
 "Fastmap" belongs to a class of approximation algorithms to principal component analysis (PCA).
@@ -348,7 +348,7 @@ Curse of dimensionality:
 
 
 <br clear=all>
-<img align=right src="/etc/img/abc.png">
+<!-- <img align=right src="/etc/img/abc.png"> -->
 We can simplify PCA from polynominal to near-linear time with FASTMAP.
 Once we know distance, then we  project things in $N$ dimensions down to one dimension 
 (being a line between 2 distant points).
