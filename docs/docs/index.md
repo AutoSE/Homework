@@ -4,11 +4,11 @@
 The purpose of this project is to convert lua code to python. This Homework is for CSC 591-021 at North Carolina State University. More about this project and its description can be found here: https://github.com/timm/tested/blob/main/src/script.lua. Click on code coverage badge above for code coverage html report.
 
 ## Documentation 
-[Script](../onScript) 
+<a href="./../onScript" target="_blank" rel="noreferrer">onScript</a>
 
-[Data](../onData)
+<a href="./../onData" target="_blank" rel="noreferrer">onData</a>
 
-[Cluster](../onCluster)
+<a href="./../onCluster" target="_blank" rel="noreferrer">onCluster</a>
 
 ### Built With
 

@@ -1,14 +1,21 @@
 # Lua Documentation
 
+
 ## About The Project
 The purpose of this project is to convert lua code to python. This Homework is for CSC 591-021 at North Carolina State University. More about this project and its description can be found here: https://github.com/timm/tested/blob/main/src/script.lua. Click on code coverage badge above for code coverage html report.
 
 ## Documentation 
-[Script](../onScript) 
+<!-- [Script](../onScript) 
 
 [Data](../onData)
 
-[Cluster](../onCluster)
+[Cluster](../onCluster) -->
+
+<a href="../onScript" target="_blank" rel="noreferrer">onScript</a>
+
+<a href="../onData" target="_blank" rel="noreferrer">onData</a>
+
+<a href="../onCluster" target="_blank" rel="noreferrer">onCluster</a>
 
 ### Built With
 
