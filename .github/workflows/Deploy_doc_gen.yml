@@ -3,7 +3,7 @@ name: Deploy_doc_gen
 on:
   push:
     branches:
-      - Kaksha
+      - main
 
 permissions:
   contents: write
