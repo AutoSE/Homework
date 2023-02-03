@@ -13,7 +13,7 @@ If you look at my code, there are some common things:
 - a random number generator (which is initialized from one the settings in the help string)
 - a reader system that inputs CSV files with named columns
   - this generated a data model of five classes seen in most of my code (DATA, ROW, COLS, NUM, SYM)
-  - which is all in [next lecture](/docs/onData.md)
+  <!-- - which is all in [next lecture](/docs/onData.md) -->
 
   ## Version Contol
 
