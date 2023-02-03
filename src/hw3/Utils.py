@@ -23,6 +23,13 @@ def rnd(n, nPlaces=3    ):
     mult = 10**nPlaces 
     return math.floor(n * mult + 0.5) / mult
 
+def cosine(a, b, c):
+    x1 = (a**2 + c**2 - b**2) / (2**c)
+    x2 = max(0, min(1, x1))
+    y  = (a**2 - x2**2)**0.5
+    return x2, y
+
+
 #Strings
 def fmt(sControl):
     return str(sControl)
@@ -58,12 +65,11 @@ def csv(sFilename, fun):
         fun(t)
 
 
-
 #Lists
 def map(t, fun):
     u={}
-    for k,v in enumerate(t):
-        v,k=fun(v)
+    for v in t:
+        k=fun(v)
         if k:
             u[k]=v
         else:
@@ -77,5 +83,13 @@ def kap(t, fun):
         if k:
             u[k]=v
         else:
-            u[len(u)+1]=v
+            u[1+len(u)]=v
     return u
+
+def any(t):
+    return t[rint(len(t))]
+
+def many(t,n,):
+   u={} 
+   for i in range(1,n+1):
+    u[1+len(u)]=any(t)

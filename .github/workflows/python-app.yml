@@ -45,7 +45,6 @@ jobs:
         coverage html
     - name: Testing
       run: |
-        python src/hw1/test.py
-        python src/HW2/test2.py
-    - name: Coverage To Codecov
-      uses: codecov/codecov-action@v2
+        python src/hw1/main.py
+        python src/HW2/main.py
+        python src/hw3/main.py

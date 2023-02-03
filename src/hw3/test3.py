@@ -27,43 +27,27 @@ def num():
     egs['num'] = 11/7 == num_obj.mid() and 0.787 == u.rnd(num_obj.div())
     return 11/7 == num_obj.mid() and 0.787 == u.rnd(num_obj.div())
 
-def csv_help(t):
-    global line
-
-    line += len(t)
-
-def csv():
-    n=0
-    u.csv(c.the["file"],csv_help)
-    egs['csv'] = line == 8*399
-    return line == 8*399
 
 def data():
     data = d.Data(c.the["file"])
     return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
 
-def stats():
-    data = d.Data(c.the['file'])
-    for k, cols in enumerate([data.cols.y,data.cols.x]):
-        if k==0:
-            k=='y'
-        else:
-            k=='x'
-        print(k, 'mid', str(data.stats('mid', cols, 2)))
-        print(' ', 'div',str(data.stats('div', cols, 2)))
-    return True
+def clone():
+    data1 = d.Data(c.the["file"])
+    data2 = data1.clone(data1.rows)
+    return len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
 
-
+def around():
+    data = d.Data(c.the["file"])
+    print(0,0,data.rows[1].cells)
+    for n,t in enumerate(data.around(data.rows[1])):
+        if n%50==0:
+            print(n,u.rnd(t['dist'],2),t['row'].cells)
 
 def all():
   egs['the']=the()
+  egs['data']=data()
   egs['sym']=sym()
   egs['num']=num()
-  egs['csv']=csv()
-  egs['data']=data()
-  egs['stats']=stats()
-
-
-
-
-
+  egs['clone']=clone()
+  egs['around']=around()
