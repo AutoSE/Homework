@@ -36,5 +36,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Testing
       run: |
-        python src/hw1/test.py
-        python src/HW2/test2.py
+        python src/hw1/main.py
+        python src/HW2/main.py
+        python src/hw3/main.py
