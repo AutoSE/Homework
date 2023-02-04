@@ -87,9 +87,11 @@ def kap(t, fun):
     return u
 
 def any(t):
-    return t[rint(len(t))]
+    return t[rint(0,len(t)-1)]
 
-def many(t,n,):
-   u={} 
+def many(t,n):
+   u=[]
    for i in range(1,n+1):
-    u[1+len(u)]=any(t)
+    u.append(any(t))
+   return u
+

@@ -47,12 +47,34 @@ class Data:
             s2=s2-math.exp(col.w*(y-x)/len(ys))
             return s1/len(ys) < s2/len(ys)
 
-    def dist(self, row1, row2, cols):
+    def dist(self, row1, row2, cols=None):
         n,d = 0,0
-        for col in (cols if cols else  self.cols.x):
+        for col in (cols or self.cols.x):
             n = n + 1
             d = d + col.dist(row1.cells[col.at], row2.cells[col.at])**g.the["p"]
         return (d/n)**(1/g.the["p"])
 
     def around(self, row1, rows=None, cols=None):
-        return sorted(list(map(lambda row2: {'row': row2, 'dist': self.dist(row1, row2, cols or self.cols.x)}, rows or self.rows)),key= lambda k: k['dist'])
+        def function(row2):
+            return {'row' : row2, 'dist' : self.dist(row1,row2,cols)} 
+        return sorted(list(map(function, rows or self.rows)), key= lambda k: k['dist'])
+
+    def half(self, rows=None, cols=None, above=None):
+        def dist(row1, row2):
+            return self.dist(row1, row2, cols)
+        rows=rows or self.rows
+        some=u.many(rows, g.the['Sample'])
+        A=above or u.any(some)
+        B=self.around(A, some)[int((float(g.the['Far'])*len(rows)))]['row']
+        c=dist(A,B)
+        left,right=[],[]
+        
+        def project(row):
+            return {'row': row, 'dist': u.cosine(dist(row, A), dist(row,B), c)}
+        for n, tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
+            if n<=len(rows)//2:
+                left.append(tmp['row'])
+                mid=tmp['row']
+            else:
+                right.append(tmp['row'])
+        return left, right, A,B,mid,c

@@ -44,10 +44,26 @@ def around():
         if n%50==0:
             print(n,u.rnd(t['dist'],2),t['row'].cells)
 
+def half():
+    data=d.Data(c.the['file'])
+    left,right,A,B,mid,C=data.half()
+    print(len(left),len(right),len(data.rows))
+    print(A.cells,C)
+    print(mid.cells)
+    print(B.cells)
+
 def all():
-  egs['the']=the()
-  egs['data']=data()
-  egs['sym']=sym()
-  egs['num']=num()
-  egs['clone']=clone()
-  egs['around']=around()
+    print('the')
+    egs['the']=the()
+    print('data')
+    egs['data']=data()
+    print('sym')
+    egs['sym']=sym()
+    print('num')
+    egs['num']=num()
+    print('clone')
+    egs['clone']=clone()
+    print('around')
+    egs['around']=around()
+    print('half')
+    egs['half']=half()
