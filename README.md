@@ -44,7 +44,7 @@ To run the program, you will need python 3.0 or higher.
    python main.py -g all
    ```
 ### Documentation
-To view documentation go to pydocs.
+To view documentation click [here](https://autose.github.io/Homework/).
 
 <hr />
 
