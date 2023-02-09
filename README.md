@@ -1,5 +1,5 @@
 
-# Homework 1, 2
+# Homework 1, 2, 3
 [![DOI](https://zenodo.org/badge/589422049.svg)](https://zenodo.org/badge/latestdoi/589422049)
 [![Contributors][contributors]][contributors-url]
 [![last commit][last-commit]][last-commit-url]
@@ -12,7 +12,17 @@
 <hr />
 
 ## About The Project
-The purpose of this project is to convert lua code to python. This Homework is for CSC 591-021 at North Carolina State University. More about this project and its description can be found here: https://github.com/timm/tested/blob/main/src/script.lua. Click on code coverage badge above for code coverage html report.
+The purpose of this project is to convert lua code to python. This Homework is for CSC 591-021 at North Carolina State University. More about this project and its description can be found here: 
+
+HW1: https://github.com/timm/tested/blob/main/src/script.lua. 
+
+HW2: https://github.com/timm/tested/blob/main/src/data.lua
+
+HW3: https://github.com/timm/tested/blob/main/src/cluster.lua
+
+HW4: https://github.com/timm/tested/blob/main/docs/onGrid.md
+
+Click on code coverage badge above for code coverage html report.
 
 ### Documentation
 Click [here](https://autose.github.io/Homework/) for a detailed documentation of this project.
