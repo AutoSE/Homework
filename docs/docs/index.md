@@ -1,31 +1,14 @@
-
-# Homework 1, 2, 3, 4
-[![DOI](https://zenodo.org/badge/589422049.svg)](https://zenodo.org/badge/latestdoi/589422049)
-[![Contributors][contributors]][contributors-url]
-[![last commit][last-commit]][last-commit-url]
-![forks][forks]
-![stars][stars]
-![watchers][watchers]
-[![coverage][coverage]][coverage-url]
-
-
-<hr />
+# Lua Documentation
 
 ## About The Project
-The purpose of this project is to convert lua code to python. This Homework is for CSC 591-021 at North Carolina State University. More about this project and its description can be found here: 
+The purpose of this project is to convert lua code to python. This Homework is for CSC 591-021 at North Carolina State University. More about this project and its description can be found here: https://github.com/timm/tested/blob/main/src/script.lua. Click on code coverage badge above for code coverage html report.
 
-HW1: https://github.com/timm/tested/blob/main/src/script.lua. 
+## Documentation 
+<a href="./../onScript" target="_blank" rel="noreferrer">onScript</a>
 
-HW2: https://github.com/timm/tested/blob/main/src/data.lua
+<a href="./../onData" target="_blank" rel="noreferrer">onData</a>
 
-HW3: https://github.com/timm/tested/blob/main/src/cluster.lua
-
-HW4: https://github.com/timm/tested/blob/main/docs/onGrid.md
-
-Click on code coverage badge above for code coverage html report.
-
-### Documentation
-Click [here](https://autose.github.io/Homework/) for a detailed documentation of this project.
+<a href="./../onCluster" target="_blank" rel="noreferrer">onCluster</a>
 
 ### Built With
 
@@ -54,7 +37,7 @@ To run the program, you will need python 3.0 or higher.
    python main.py -g all
    ```
 ### Documentation
-To view documentation click [here](https://autose.github.io/Homework/).
+To view documentation go to pydocs.
 
 <hr />
 
@@ -84,7 +67,6 @@ Click on the badge below to view the Zenodo DOI page for this project.
 
 <hr />
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 [contributors]: https://img.shields.io/github/contributors/AutoSE/Homework
 [contributors-url]: https://github.com/AutoSE/Homework/graphs/contributors
@@ -108,3 +90,5 @@ Click on the badge below to view the Zenodo DOI page for this project.
 
 [coverage]: https://img.shields.io/badge/coverage-73%25-orange
 [coverage-url]: https://github.com/AutoSE/Homework
+
+
