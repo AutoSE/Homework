@@ -52,6 +52,14 @@ def half():
     print(mid.cells)
     print(B.cells)
 
+def cluster():
+    data = d.Data(c.the['file'])
+    u.show(data.cluster(), "mid", data.cols.y, 1)
+
+def optimize():
+    data = d.Data(c.the['file'])
+    u.show(data.sway(),'mid',data.cols.y, 1)
+
 def all():
     print('the')
     egs['the']=the()
@@ -67,3 +75,7 @@ def all():
     egs['around']=around()
     print('half')
     egs['half']=half()
+    print('cluster')
+    egs['cluster']=cluster()
+    print('optimize')
+    egs['optimize']=optimize()
