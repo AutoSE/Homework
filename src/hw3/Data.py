@@ -23,8 +23,10 @@ class Data:
         else:
             self.cols=c.Cols(t)
 
-    def clone(self, init):
-        return self
+    def clone(self, init = {}):
+        data = Data([self.cols.names])
+        _ = list(map(data.add, init))
+        return data
 
     def stats(self, what, cols, nPlaces):
         def fun(k,col):
