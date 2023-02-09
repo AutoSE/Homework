@@ -74,7 +74,7 @@ class Data:
         def project(row):
             return {'row': row, 'dist': u.cosine(dist(row, A), dist(row,B), c)}
         for n, tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
-            if n<=len(rows)//2:
+            if n<len(rows)//2:
                 left.append(tmp['row'])
                 mid=tmp['row']
             else:
@@ -86,7 +86,7 @@ class Data:
         min = min or (len(rows)**float(g.the['min']))
         cols = cols or self.cols.x
         node = {'data' : self.clone(rows)}
-        if len(rows) >= 2*min:
+        if len(rows) > 2*min:
             left, right, node['A'], node['B'], node['mid'], _ = self.half(rows,cols,above)
             node['left'] = self.cluster(left, min, cols, node['A'])
             node['right'] = self.cluster(right, min, cols, node['B'])
