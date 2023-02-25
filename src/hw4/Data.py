@@ -65,7 +65,7 @@ class Data:
         rows=rows or self.rows
         some=u.many(rows, g.the['Sample'])
         A=above or u.any(some)
-        B=self.around(A, some)[int((float(g.the['Far'])*len(rows)))]['row']
+        B=self.furthest(A,rows)['row']
         c=dist(A,B)
         left,right=[],[]
         
@@ -101,3 +101,7 @@ class Data:
                 left,right,node['A'],node['B'] = right,left,node['B'],node['A']
             node['left'] = self.sway(left, min, cols, node['A'])
         return node
+
+    def furthest(self, row1, rows = None, cols = None):
+        t=self.around(row1,rows,cols)
+        return t[len(t) - 1]
