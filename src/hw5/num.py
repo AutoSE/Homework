@@ -1,4 +1,3 @@
-import math
 import re
 import Utils as u
 
@@ -10,11 +9,14 @@ class Num:
         self.n=0
         self.lo, self.hi = float("inf"), float("-inf")
         self.w = -1 if "-" in self.txt else 1 
+        self.has = {}
 
     def add(self,n):
         if n != '?':
             n=int(n)
             self.n = self.n + 1
+            if self.n <= g.the['Max']:
+                self.has[n]= n
             d = n - self.mu
             self.mu = self.mu + d/self.n
             self.m2 = self.m2 + d*(n-self.mu)

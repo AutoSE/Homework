@@ -1,10 +1,11 @@
 import Utils as u
-import test3 as t
+import test5 as t
 import cli as c
+import copy
 import sys
 def main():
     t.all()
-    saved, fails = {}, 0
+    saved, fails = copy(c.the), 0
     for k,v in c.cli(u.settings(c.help)).items():
         c.the[k]=v
         saved[k]=v
