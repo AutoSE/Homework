@@ -13,6 +13,12 @@ def the():
     egs['the'] = c.the
     return True
 
+def copy():
+    t1 = {'a' : 1, 'b' : { 'c' : 2, 'd' : [3]}}
+    t2 = u.deepcopy(t1)
+    t2['b']['d'][0] = 10000
+    print('b4', t1, '\nafter', t2)
+
 def sym():
     sym_obj = s.Sym()
     for k,x in enumerate(["a","a","a","a","b","b","c"]):
@@ -27,55 +33,59 @@ def num():
     egs['num'] = 11/7 == num_obj.mid() and 0.787 == u.rnd(num_obj.div())
     return 11/7 == num_obj.mid() and 0.787 == u.rnd(num_obj.div())
 
+def t_repCols():
+    t = u.repCols(u.dofile(c.the['file'])['cols'], d.Data)
+    _ = list(map(u.oo, t.cols.all))
+    _ = list(map(u.oo, t.rows))
+
+def synonyms():
+    data = d.Data(c.the['file'])
+    u.show(u.repCols(u.dofile(c.the['file'])['cols'], d.Data).cluster(),"mid",data.cols.all,1)
+
+def t_repRows():
+    t=u.dofile(c.the['file'])
+    rows = u.repRows(t, d.Data, u.transpose(t['cols']))
+    _ = list(map(u.oo, rows.cols.all))
+    _ = list(map(u.oo, rows.rows))
 
 def data():
     data = d.Data(c.the["file"])
     return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
 
-def clone():
-    data1 = d.Data(c.the["file"])
-    data2 = data1.clone(data1.rows)
-    return len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
+def prototypes():
+    t = u.dofile(c.the['file'])
+    rows = u.repRows(t, d.Data, u.transpose(t['cols']))
+    u.show(rows.cluster(),"mid",rows.cols.all,1)
 
-def around():
-    data = d.Data(c.the["file"])
-    print(0,0,data.rows[1].cells)
-    for n,t in enumerate(data.around(data.rows[1])):
-        if n%50==0:
-            print(n,u.rnd(t['dist'],2),t['row'].cells)
+def position():
+    t = u.dofile(c.the['file'])
+    rows = u.repRows(t, d.Data, u.transpose(t['cols']))
+    rows.cluster()
+    u.repPlace(rows)
 
-def half():
-    data=d.Data(c.the['file'])
-    left,right,A,B,mid,C=data.half()
-    print(len(left),len(right),len(data.rows))
-    print(A.cells,C)
-    print(mid.cells)
-    print(B.cells)
-
-def cluster():
-    data = d.Data(c.the['file'])
-    u.show(data.cluster(), "mid", data.cols.y, 1)
-
-def optimize():
-    data = d.Data(c.the['file'])
-    u.show(data.sway(),'mid',data.cols.y, 1)
+def every():
+    u.repgrid(the['file'], d.Data)
 
 def all():
     print('the')
     egs['the']=the()
+    print('copy')
+    egs['copy']=copy()
     print('data')
     egs['data']=data()
     print('sym')
     egs['sym']=sym()
     print('num')
     egs['num']=num()
-    print('clone')
-    egs['clone']=clone()
-    print('around')
-    egs['around']=around()
-    print('half')
-    egs['half']=half()
-    print('cluster')
-    egs['cluster']=cluster()
-    print('optimize')
-    egs['optimize']=optimize()
+    print('repCols')
+    egs['repCols']=t_repCols()
+    print('synonyms')
+    egs['synonyms']=synonyms()
+    print('repRows')
+    egs['repRows']=t_repRows()
+    print('every')
+    egs['every']=every()
+    print('position')
+    egs['position']=position()
+    print('prototypes')
+    egs['prototypes']=prototypes()
