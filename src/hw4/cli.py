@@ -60,7 +60,7 @@ import re
 #default values
 help = "script.lua : an example script with help text and a test suite\n\n\
 -d --dump   on test failure, exit with stack dump = false\n\
--f --file with csv data = ./etc/data/repgrid1.csv\n\
+-f --file with csv data = ../../etc/data/repgrid1.csv\n\
 -F  --Far     distance to \"faraway\"  = .95\n\
 -g --go start-up action = data\n\
 -h --help   show help   = false\n\
