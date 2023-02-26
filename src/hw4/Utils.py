@@ -127,6 +127,8 @@ def repCols(cols, DATA):
 
 def repRows(t, DATA, rows):
     rows = deepcopy(rows)
+    print(rows)
+    print(type(rows))
     for j, s in enumerate(rows[-1]):
         rows[0][j] = rows[0][j] + ":" + s
     rows.pop()
@@ -150,7 +152,7 @@ def transpose(t):
         u.append([])
         for j in range(len(t)):
             u[i].append(t[j][i])
-    return 
+    return u
 
 def repgrid(sFile, DATA):
     t = dofile(sFile)
