@@ -81,14 +81,14 @@ class Data:
 
     def cluster(self, rows = None, min=None, cols=None, above=None):
         rows = rows or self.rows
-        min = min or (len(rows)**float(g.the['min']))
         cols = cols or self.cols.x
-        node = {'data' : self.clone(rows)}
-        if len(rows) >= 2*min:
-            left, right, node['A'], node['B'], node['mid'], _ = self.half(rows,cols,above)
-            node['left'] = self.cluster(left, min, cols, node['A'])
-            node['right'] = self.cluster(right, min, cols, node['B'])
+        node = { 'data' : self.clone(rows) }
+        if len(rows) >= 2:
+            left, right, node['A'], node['B'], node['mid'], node['c'] = self.half(rows,cols,above)
+            node['left']  = self.cluster(left,  cols, node['A'])
+            node['right'] = self.cluster(right, cols, node['B'])
         return node
+
 
     def sway(self, rows=None, min=None, cols=None, above=None):
         rows= rows or self.rows
