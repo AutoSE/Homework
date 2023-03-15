@@ -41,6 +41,12 @@ jobs:
         cd ../HW2
         ls
         coverage run -m main -g all --file ../../etc/data/auto93.csv 
+        cd src/hw3
+        ls
+        coverage run -m main -g all --file ../../etc/data/auto93.csv 
+        cd src/hw4
+        ls
+        coverage run -m main -g all --file ../../etc/data/repgrid1.csv
         coverage report
         coverage html
     - name: Testing
