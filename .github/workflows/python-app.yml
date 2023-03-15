@@ -54,3 +54,4 @@ jobs:
         python src/hw1/main.py
         python src/HW2/main.py
         python src/hw3/main.py
+        python src/hw4/main.py
