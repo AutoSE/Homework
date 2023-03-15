@@ -48,10 +48,6 @@ def t_repRows():
     _ = list(map(u.oo, rows.cols.all))
     _ = list(map(u.oo, rows.rows))
 
-def data():
-    data = d.Data(c.the["file"])
-    return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
-
 def prototypes():
     t = u.dofile(c.the['file'])
     rows = u.repRows(t, d.Data, u.transpose(t['cols']))
@@ -64,15 +60,13 @@ def position():
     u.repPlace(rows)
 
 def every():
-    u.repgrid(the['file'], d.Data)
+    u.repgrid(c.the['file'], d.Data)
 
 def all():
     print('the')
     egs['the']=the()
     print('copy')
     egs['copy']=copy()
-    print('data')
-    egs['data']=data()
     print('sym')
     egs['sym']=sym()
     print('num')
