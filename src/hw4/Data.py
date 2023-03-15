@@ -70,16 +70,23 @@ class Data:
         left,right=[],[]
         
         def project(row):
-            return {'row': row, 'dist': u.cosine(dist(row, A), dist(row,B), c)}
-        for n, tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
-            if n<=len(rows)//2:
+            x, y = u.cosine(dist(row,A), dist(row,B), c)
+            try:
+                row.x = row.x
+                row.y = row.y
+            except:
+                row.x = x
+                row.y = y
+            return {'row' : row, 'x' : x, 'y' : y}
+        for n,tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('x'))):
+            if n < len(rows)//2:
                 left.append(tmp['row'])
-                mid=tmp['row']
+                mid = tmp['row']
             else:
                 right.append(tmp['row'])
-        return left, right, A,B,mid,c
+        return left, right, A, B, mid, c
 
-    def cluster(self, rows = None, min=None, cols=None, above=None):
+    def cluster(self, rows = None, cols=None, above=None):
         rows = rows or self.rows
         cols = cols or self.cols.x
         node = { 'data' : self.clone(rows) }
