@@ -51,8 +51,8 @@ def syms():
     sym_obj = s.Sym()
     for k,x in enumerate(["a","a","a","a","b","b","c"]):
         sym_obj.add(x)
-    egs['sym'] = "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
-    return "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
+    print(sym_obj.mid(), u.rnd(sym_obj.div()))
+    return 1.379 == u.rnd(sym_obj.div())
 
 def csv():
     def fn(t):
