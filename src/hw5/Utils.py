@@ -12,14 +12,14 @@ def settings(s):
     return dict(re.findall("\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)",s))
 
 #Numerics
-def rint(lo, hi):
-    return math.floor(0.5 + rand(lo, hi))
+def rint(lo, hi, mseed=None):
+    return math.floor(0.5 + rand(lo, hi, mseed))
 
-def rand(lo, hi):
+def rand(lo, hi, mseed=None):
     lo= lo or 0
     hi= hi or 1
     global Seed
-    Seed = (16807 * Seed) % 2147483647
+    Seed = 1 if mseed else (16807 * Seed) % 2147483647
     return lo + (hi-lo) * Seed / 2147483647
 
 def rnd(n, nPlaces=3    ):

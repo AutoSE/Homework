@@ -13,6 +13,43 @@ def the():
     egs['the'] = c.the
     return True
 
+def rand():
+    Seed = 1
+    t=[]
+    for i in range(1,1000+1):
+        t.append(u.rint(0,100,1))
+    Seed=1
+    U=[]
+    for i in range(1,1000+1):
+        U.append(u.rint(0,100,1))
+    for k,v in enumerate(t):
+        assert(v==U[k])
+
+def some():
+    c.the['Max'] = 32
+    num1 = n.Num()
+    for i in range(1,10001):
+        num1.add(i)
+    print(num1.has)
+
+def nums():
+    num1, num2 = n.Num(),n.Num()
+    global Seed
+    Seed = c.the['seed']
+    for i in range(1,10001):
+        num1.add(u.rand(0,1))
+    Seed = c.the['seed']
+    for i in range(1,10001):
+        num2.add(u.rand(0,1)**2)
+    m1,m2 = u.rnd(num1.mid(),1), u.rnd(num2.mid(),1)
+    d1,d2 = u.rnd(num1.div(),1), u.rnd(num2.div(),1)
+    print(1, m1, d1)
+    print(2, m2, d2) 
+    return m1 > m2 and .5 == u.rnd(m1,1)
+
+
+
+
 def sym():
     sym_obj = s.Sym()
     for k,x in enumerate(["a","a","a","a","b","b","c"]):
@@ -63,6 +100,12 @@ def optimize():
 def all():
     print('the')
     egs['the']=the()
+    print('rand')
+    egs['rand']=rand()
+    print('nums')
+    egs['nums']=nums()
+    print('some')
+    egs['some']=some()
     print('data')
     egs['data']=data()
     print('sym')
