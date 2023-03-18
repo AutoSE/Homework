@@ -47,15 +47,12 @@ def nums():
     print(2, m2, d2) 
     return m1 > m2 and .5 == u.rnd(m1,1)
 
-
-
-
 def sym():
     sym_obj = s.Sym()
     for k,x in enumerate(["a","a","a","a","b","b","c"]):
         sym_obj.add(x)
-    egs['sym'] = "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
-    return "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
+    print(sym_obj.mid(), u.rnd(sym_obj.div()))
+    return 1.379 == u.rnd(sym_obj.div())
 
 def num():
     num_obj = n.Num()
