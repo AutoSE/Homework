@@ -47,23 +47,21 @@ def nums():
     print(2, m2, d2) 
     return m1 > m2 and .5 == u.rnd(m1,1)
 
-
-
-
-def sym():
+def syms():
     sym_obj = s.Sym()
     for k,x in enumerate(["a","a","a","a","b","b","c"]):
         sym_obj.add(x)
     egs['sym'] = "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
     return "a" == sym_obj.mid() and 1.379 == u.rnd(sym_obj.div())
 
-def num():
-    num_obj = n.Num()
-    for k,x in enumerate([1,1,1,1,2,2,3]):
-        num_obj.add(x)
-    egs['num'] = 11/7 == num_obj.mid() and 0.787 == u.rnd(num_obj.div())
-    return 11/7 == num_obj.mid() and 0.787 == u.rnd(num_obj.div())
-
+def csv():
+    def fn(t):
+        global numberofchars
+        numberofchars+=len(t)
+    global numberofchars
+    numberofchars=0
+    u.csv(c.the['file'],fn)
+    return 3192==numberofchars
 
 def data():
     data = d.Data(c.the["file"])
@@ -102,16 +100,16 @@ def all():
     egs['the']=the()
     print('rand')
     egs['rand']=rand()
-    print('nums')
-    egs['nums']=nums()
     print('some')
     egs['some']=some()
+    print('nums')
+    egs['nums']=nums()
+    print('syms')
+    egs['syms']=syms()
+    print('csv')
+    egs['csv']=csv()
     print('data')
     egs['data']=data()
-    print('sym')
-    egs['sym']=sym()
-    print('num')
-    egs['num']=num()
     print('clone')
     egs['clone']=clone()
     print('around')
