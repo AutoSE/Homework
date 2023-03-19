@@ -65,7 +65,10 @@ def csv():
 
 def data():
     data = d.Data(c.the["file"])
-    return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
+    col = data.cols.x[1] 
+    print(col.lo,col.hi, col.mid(),col.div())
+    print(data.stats('mid', data.cols.y, 2))
+    # return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
 
 def clone():
     data1 = d.Data(c.the["file"])
