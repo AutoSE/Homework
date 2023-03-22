@@ -65,12 +65,34 @@ def csv():
 
 def data():
     data = d.Data(c.the["file"])
-    return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
+    col = data.cols.x[1]
+    print(col.lo,col.hi, col.mid(), col.div())
+    print(data.stats('mid', data.cols.y,2))
 
 def clone():
     data1 = d.Data(c.the["file"])
     data2 = data1.clone(data1.rows)
-    return len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
+    print(data1.stats('mid', data1.cols.y,2))
+    print(data2.stats('mid', data2.cols.y,2))
+
+def cliffsDelta():
+    assert(False == u.cliffsDelta([8,7,6,2,5,8,7,3],[8,7,6,2,5,8,7,3]))
+    assert(True  == u.cliffsDelta([8,7,6,2,5,8,7,3], [9,9,7,8,10,9,6])) 
+    t1,t2=[],[]
+    for i in range(1,1001):
+        t1.append(u.rand(0,1))
+    for i in range(1,1001):
+        t2.append(u.rand(0,1)**.5)
+    assert(False == u.cliffsDelta(t1,t1))
+    assert(True  == u.cliffsDelta(t1,t2))
+    diff,j=False,1.0
+    while not diff:
+        def function(x):
+            return x*j
+        t3=list(map(function, t1))
+        diff=u.cliffsDelta(t1,t3)
+        print(">",u.rnd(j),diff)
+        j=j*1.025
 
 def around():
     data = d.Data(c.the["file"])
@@ -112,6 +134,8 @@ def all():
     egs['data']=data()
     print('clone')
     egs['clone']=clone()
+    print('cliffsDelta')
+    egs['cliffsDelta']=cliffsDelta()
     print('around')
     egs['around']=around()
     print('half')
