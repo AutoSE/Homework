@@ -113,7 +113,7 @@ def show(node, what, cols, nPlaces, lvl =0):
 
 
 def merge(col1,col2):
-  new = copy(col1)
+  new = copy.deepcopy(col1)
   if isinstance(col1, Sym):
       for n in col2.has:
         new.add(n)
