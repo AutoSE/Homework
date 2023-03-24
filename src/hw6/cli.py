@@ -72,6 +72,7 @@ help = "script.lua : an example script with help text and a test suite\n\n\
 -r  --rest    how many of rest to sample   = 4\n\
 -s --seed   random number seed  = 937162211\n\
 -R  --Reuse   child splits reuse a parent pole = true\n\
+-S  --Sample   sampling data size     = 512\n\
 "
 arg = sys.argv[1:]
 

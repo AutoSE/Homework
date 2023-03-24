@@ -24,7 +24,10 @@ class Data:
             self.cols=c.Cols(t)
 
     def clone(self, init):
-        return self
+        data = Data([self.cols.names])
+        _ = list(map(data.add, init))
+        return data
+
 
     def stats(self, what, cols, nPlaces):
         def fun(k,col):
@@ -91,20 +94,23 @@ class Data:
         return node
 
     def sway(self, rows=None, min=None, cols=None, above=None):
-        rows= rows or self.rows
-        min = min or (len(rows)**float(g.the['min']))
-        cols = cols or self.cols.x
-        node = {'data': self.clone(rows)}
-        if len(rows)> 2*min:
-            left, right, node['A'], node['B'], node['mid'], _ = self.half(rows,cols,above)
-            if self.better(node['B'],node['A']):
-                left,right,node['A'],node['B'] = right,left,node['B'],node['A']
-            node['left'] = self.sway(left, min, cols, node['A'])
-        return node
+        data = self
+        def worker(rows, worse, above = None):
+            if len(rows) <= len(data.rows)**float(g.the['min']): 
+                return rows, u.many(worse, int(g.the['rest'])*len(rows))
+            else:
+                l,r,A,B,_,_ = self.half(rows, None, above)
+                if self.better(B,A):
+                    l,r,A,B = r,l,B,A
+                for row in r:
+                    worse.append(row)
+                return worker(l,worse,A)
+        best,rest = worker(data.rows,[])
+        return self.clone(best), self.clone(rest)
     
     def tree(self, rows = None , min = None, cols = None, above = None):
         rows = rows or self.rows
-        min  = min or len(rows)**g.the['min']
+        min  = min or len(rows)**float(g.the['min'])
         cols = cols or self.cols.x
         node = { 'data' : self.clone(rows) }
         if len(rows) >= 2*min:
