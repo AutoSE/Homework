@@ -7,7 +7,7 @@ from pathlib import Path
 import cli as c
 from sym import Sym
 Seed = 937162211
-
+import random
 def settings(s):
     return dict(re.findall("\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)",s))
 
@@ -243,6 +243,12 @@ def prune(rule, maxSize):
         return rule
 
 #HW7
+def samples(t, n=None):
+    u=[]
+    for i in range(1, (n or len(t))+1):
+        u.append(t[random.randint(0, len(t)-1)])
+    return u
+
 
 def cliffsDelta(ns1,ns2):
     if len(ns1) > 128:
