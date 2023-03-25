@@ -160,25 +160,6 @@ def merge2(col1,col2):
   if new.div() <= (col1.div()*col1.n + col2.div()*col2.n)/new.n:
     return new
 
-def cliffsDelta(ns1,ns2):
-    if len(ns1) > 256:
-        ns1 = many(ns1,256)
-    if len(ns2) > 256:
-        ns2 = many(ns2,256)
-    if len(ns1) > 10*len(ns2):
-        ns1 = many(ns1,10*len(ns2))
-    if len(ns2) > 10*len(ns1):
-        ns2 = many(ns2,10*len(ns1))
-    n,gt,lt = 0,0,0
-    for x in ns1:
-        for y in ns2:
-            n = n + 1
-            if x > y:
-                gt = gt + 1
-            if x < y:
-                lt = lt + 1
-    return abs(lt - gt)/n > float(c.the['cliffs'])
-
 def showTree(tree, what, cols, nPlaces, lvl = 0):
   if tree:
     print('|.. ' * lvl + '[' + str(len(tree['data'].rows)) + ']' + '  ', end = '')
@@ -258,3 +239,4 @@ def cliffsDelta(ns1,ns2):
             if x < y:
                 lt = lt + 1
     return abs(lt - gt)/n > float(c.the['cliffs'])
+
