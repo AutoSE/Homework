@@ -249,6 +249,9 @@ def samples(t, n=None):
         u.append(t[random.randint(0, len(t)-1)])
     return u
 
+def gaussian(mu, sd):
+    mu, sd = mu or 0, sd or 1
+    return mu + sd * math.sqrt(-2*math.log(random.random()))*math.cos(2*math.pi*random.random())
 
 def cliffsDelta(ns1,ns2):
     if len(ns1) > 128:
