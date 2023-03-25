@@ -92,6 +92,13 @@ def kap(t, fun):
             u[1+len(u)]=v
     return u
 
+def kapd(t, fun):
+    u = {}
+    for k,v in t.items():
+        v, k = fun(k,v)
+        u[k or len(u)] = v
+    return u
+
 def any(t):
     return t[rint(0,len(t)-1)]
 
@@ -139,6 +146,7 @@ def value(has,nB = None, nR = None, sGoal = None):
     sGoal,nB,nR = sGoal or True, nB or 1, nR or 1
     b,r = 0,0
     for x,n in has.items():
+
         if x==sGoal:
             b = b + n
         else:
@@ -211,7 +219,6 @@ def mergeAny(ranges0):
         t[0]['lo']  = float("-inf")
         t[len(t)-1]['hi'] =  float("inf")
         return t
-
     ranges1,j = [],0
     while j <= len(ranges0)-1:
         left = ranges0[j]
@@ -224,3 +231,13 @@ def mergeAny(ranges0):
         ranges1.append(left)
         j = j+1
     return noGaps(ranges0) if len(ranges0)==len(ranges1) else mergeAny(ranges1)
+
+def prune(rule, maxSize):
+    n=0
+    for txt, ranges in rule.items():
+        n=n+1
+        if len(ranges)== maxSize[txt]:
+            n=n-1
+            rule['txt']=None
+    if n>0:
+        return rule
