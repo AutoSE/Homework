@@ -73,6 +73,12 @@ help = "script.lua : an example script with help text and a test suite\n\n\
 -s --seed   random number seed  = 937162211\n\
 -R  --Reuse   child splits reuse a parent pole = true\n\
 -S  --Sample   sampling data size     = 512\n\
+-b  --bootstrap   bootstrap   = 512\n\
+-C  --conf   conf   = 0.05\n\
+-q  --cliff   cliff   = 0.4\n\
+-h  --cohen   cohen   = 0.35\n\
+-M  --Fmt   Fmt   = %6.2f\n\
+-W  --width   width   = 40\n\
 "
 arg = sys.argv[1:]
 
@@ -82,7 +88,7 @@ pattern = re.compile("\n[-][\S]+[\s]+[-][-]([\S]+)[^\n]+=[\s]([\S]+)")
 for match in pattern.finditer(help):
     k, v = match.group(1, 2)
     the[k] = coerce(v)
-
+#the = { 'bootstrap' : 512, 'conf' : 0.05, 'cliff' : 0.4, 'cohen': 0.35, 'Fmt': "%6.2f", 'width':40}
 """
 Reads in default options and stores in configuration dictionary "the"
 t = dictionary of options

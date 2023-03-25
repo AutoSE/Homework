@@ -241,3 +241,5 @@ def prune(rule, maxSize):
             rule['txt']=None
     if n>0:
         return rule
+
+#HW7
