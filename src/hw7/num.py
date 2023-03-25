@@ -1,5 +1,6 @@
 import re
 import Utils as u
+import cli as g
 
 class Num:
     def __init__(self, at=None, txt=None):
@@ -13,7 +14,7 @@ class Num:
 
     def add(self,n):
         if n != '?':
-            n=int(n)
+            n=float(n)
             self.n = self.n + 1
             if self.n <= g.the['Max']:
                 self.has[n]= n

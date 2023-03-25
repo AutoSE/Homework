@@ -12,14 +12,14 @@ def settings(s):
     return dict(re.findall("\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)",s))
 
 #Numerics
-def rint(lo, hi):
-    return math.floor(0.5 + rand(lo, hi))
+def rint(lo, hi, mseed=None):
+    return math.floor(0.5 + rand(lo, hi, mseed))
 
-def rand(lo, hi):
+def rand(lo, hi, mseed=None):
     lo= lo or 0
     hi= hi or 1
     global Seed
-    Seed = (16807 * Seed) % 2147483647
+    Seed = 1 if mseed else (16807 * Seed) % 2147483647
     return lo + (hi-lo) * Seed / 2147483647
 
 def rnd(n, nPlaces=3    ):
@@ -41,8 +41,8 @@ def oo(t):
     d = t.__dict__
     d['a'] = t.__class__.__name__
     d['id'] = id(t)
-    d = dict(sorted(d.items()))
-    print(d)
+    #d = dict(sorted(d.items()))
+    print(dict(sorted(d.items())))
 
 def coerce(s):
     if s=='true' or s=='True':
@@ -92,6 +92,13 @@ def kap(t, fun):
             u[1+len(u)]=v
     return u
 
+def kapd(t, fun):
+    u = {}
+    for k,v in t.items():
+        v, k = fun(k,v)
+        u[k or len(u)] = v
+    return u
+
 def any(t):
     return t[rint(0,len(t)-1)]
 
@@ -113,7 +120,7 @@ def show(node, what, cols, nPlaces, lvl =0):
 
 
 def merge(col1,col2):
-  new = copy(col1)
+  new = copy.deepcopy(col1)
   if isinstance(col1, Sym):
       for n in col2.has:
         new.add(n)
@@ -139,6 +146,7 @@ def value(has,nB = None, nR = None, sGoal = None):
     sGoal,nB,nR = sGoal or True, nB or 1, nR or 1
     b,r = 0,0
     for x,n in has.items():
+
         if x==sGoal:
             b = b + n
         else:
@@ -169,7 +177,7 @@ def cliffsDelta(ns1,ns2):
                 gt = gt + 1
             if x < y:
                 lt = lt + 1
-    return abs(lt - gt)/n > c.the['cliffs']
+    return abs(lt - gt)/n > float(c.the['cliffs'])
 
 def showTree(tree, what, cols, nPlaces, lvl = 0):
   if tree:
@@ -211,7 +219,6 @@ def mergeAny(ranges0):
         t[0]['lo']  = float("-inf")
         t[len(t)-1]['hi'] =  float("inf")
         return t
-
     ranges1,j = [],0
     while j <= len(ranges0)-1:
         left = ranges0[j]
@@ -224,3 +231,13 @@ def mergeAny(ranges0):
         ranges1.append(left)
         j = j+1
     return noGaps(ranges0) if len(ranges0)==len(ranges1) else mergeAny(ranges1)
+
+def prune(rule, maxSize):
+    n=0
+    for txt, ranges in rule.items():
+        n=n+1
+        if len(ranges)== maxSize[txt]:
+            n=n-1
+            rule['txt']=None
+    if n>0:
+        return rule
