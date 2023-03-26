@@ -77,7 +77,7 @@ help = "script.lua : an example script with help text and a test suite\n\n\
 -C  --conf   conf   = 0.05\n\
 -q  --cliff   cliff   = 0.4\n\
 -h  --cohen   cohen   = 0.35\n\
--M  --Fmt   Fmt   = %6.2f\n\
+-M  --Fmt   Fmt   = {:.2f}\n\
 -W  --width   width   = 40\n\
 "
 arg = sys.argv[1:]

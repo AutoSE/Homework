@@ -4,8 +4,10 @@ import math
 import copy
 import json
 from pathlib import Path
-import cli as c
+import cli as w
 from sym import Sym
+from num import Num
+
 Seed = 937162211
 import random
 def settings(s):
@@ -119,18 +121,6 @@ def show(node, what, cols, nPlaces, lvl =0):
         show(node.get('right'), what,cols,nPlaces, lvl+1)
 
 
-def merge(col1,col2):
-  new = copy.deepcopy(col1)
-  if isinstance(col1, Sym):
-      for n in col2.has:
-        new.add(n)
-  else:
-    for n in col2.has:
-        new.add(new,n)
-    new.lo = min(col1.lo, col2.lo)
-    new.hi = max(col1.hi, col2.hi) 
-  return new
-
 def RANGE(at,txt,lo,hi=None):
     return {'at':at,'txt':txt,'lo':lo,'hi':lo or hi or lo,'y':Sym()}
 
@@ -190,7 +180,7 @@ def bins(cols,rowss):
 def bin(col,x):
     if x=="?" or isinstance(col, Sym):
         return x
-    tmp = (col.hi - col.lo)/(c.the['bins'] - 1)
+    tmp = (col.hi - col.lo)/(w.the['bins'] - 1)
     return  1 if col.hi == col.lo else math.floor(x/tmp + .5)*tmp
 
 def mergeAny(ranges0):
@@ -247,36 +237,132 @@ def cliffsDelta(ns1,ns2):
                 gt = gt + 1
             if x < y:
                 lt = lt + 1
-    return abs(lt - gt)/n > float(c.the['cliffs'])
+    return abs(lt - gt)/n <= float(w.the['cliffs'])
 
 def delta(i,other):
     e,y,z = 1E-32, i, other
     return abs(y.mu-z.mu)/((e+y.sd**2/y.n+z.sd**2/z.n)**0.5)
 
-def bootstrap(y0,z0, Num):
-    x,y,z,yhat,zhat = Num(),Num(),Num(),[],[]
+def bootstrap(y0,z0):
+    x,y,z,yhat,zhat = Num(), Num(), Num(),[],[]
     for y1 in y0:
         x.add(y1)
         y.add(y1)
-
     for z1 in z0:
         x.add(z1)
         z.add(z1)
-
     xmu,ymu,zmu = x.mu, y.mu, z.mu
-
     for y1 in y0:
         yhat.append(y1-ymu+xmu)
     for z1 in z0:
         zhat.append(z1-zmu+xmu)
     tobs = delta(y,z)
     n=0
-    for _ in range(1,c.the['bootstrap']+1):
+    for _ in range(1,w.the['bootstrap']+1):
         ypass,zpass=Num(),Num()
-        for y in samples(yhat).values():
+        for y in samples(yhat):
             ypass.add(y)
-        for z in samples(yhat).values():
+        for z in samples(yhat):
             zpass.add(z)
         if delta(ypass,zpass)>tobs:
             n=n+1
-    return (n/c.the['bootstrap']) >= c.the['conf']
+    return (n/float(w.the['bootstrap'])) >= float(w.the['conf'])
+
+def mid(t):
+    t= t['has'] if t['has'] else t
+    n = (len(t)-1)//2
+    return (t[n] +t[n+1])/2 if len(t)%2==0 else t[n+1]
+
+def div(t):
+    t= t['has'] if t['has'] else t
+    return (t[len(t)*9//10] - t[len(t)*1//10])/2.56
+
+def RX(t,s):
+    t= sorted(t)
+    return {'name': s or "", 'rank': 0, 'n': len(t), 'show': "", 'has': t}
+
+def merge(rx1,rx2):
+    rx3=RX([], rx1['name'])
+    rx3['has'] = rx1['has'] + rx2['has']
+    rx3['has'] = sorted(rx3['has'])
+    rx3['n'] = len(rx3['has'])
+    return rx3
+
+def tablesort(rxs):
+    for i,x in enumerate(rxs):
+        for j,y in enumerate(rxs):
+            if mid(x) < mid(y):
+                rxs[j],rxs[i]=rxs[i],rxs[j]
+    return rxs
+
+
+def scottKnot(rxs):
+    def merges(i,j):
+        out=RX([],rxs[i]['name'])
+        for k in range(i, j+1):
+            out=merge(out, rxs[j])
+        return out
+    def same(lo, cut, hi):
+        l = merges(lo, cut)
+        r = merges(cut+1, hi)
+        cliffsDelta(l['has'], r['has']) and bootstrap(l['has'], r['has'])
+
+    def recurse(lo, hi, rank):
+        b4=merges(lo, hi)
+        best=0
+        cut=None
+        for j in range(lo, hi+1):
+            if j<hi:
+                l=merges(lo, j)
+                r=merges(j+1, hi)
+                now=(l['n']*(mid(l)-mid(b4))**2 + r['n']*(mid(r)-mid(b4))**2) / (l['n']+r['n']) 
+                if now>best:
+                    if abs(mid(l)-mid(r))>=cohen:
+                        cut, best= j ,now
+        if cut is not None and not same(lo,cut,hi):
+            rank = recurse(lo, cut, rank) + 1
+            rank = recurse(cut+1, hi, rank) 
+        else:
+            for i in range(lo,hi+1):
+                rxs[i]['rank'] = rank
+        return rank
+    for i,x in enumerate(rxs):
+        for j,y in enumerate(rxs):
+            if mid(x) < mid(y):
+                rxs[j],rxs[i]=rxs[i],rxs[j]
+    cohen = div(merges(0,len(rxs)-1)) * float(w.the['cohen'])
+    recurse(0, len(rxs)-1, 1)
+    return rxs
+
+def tiles(rxs):
+    huge=float('-inf')
+    lo, hi= float('inf'), float('-inf')
+    for rx in rxs:
+        lo, hi= min(lo, rx['has'][0]), max(hi, rx['has'][len(rx['has'])-1])
+    for rx in rxs:
+        t, u= rx['has'],[]
+        def of(x,most):
+            return int(max(1, min(most,x)))
+        def at(x):
+            return t[of(len(t)*x//1, len(t))]
+        def pos(x):
+            wid=int(w.the['width'])
+            return math.floor(of(wid * (x - lo) / (hi - lo + 1E-32) // 1, wid))
+        for i in range(0, int(w.the['width'])+1):
+            u.append(" ")
+        a,b,c,d,e=at(0.1),at(0.3),at(0.5),at(0.7),at(0.9)
+        A,B,C,D,E=pos(a), pos(b), pos(c), pos(d), pos(e)
+        for i in range(A,B+1):
+            u[i]="-"
+        for i in range(D,E+1):
+            u[i]="-"
+        u[int(w.the['width'])//2]="|" 
+        u[C]="*"
+        x=[]
+        for i in [a,b,c,d,e]:
+            x.append(w.the['Fmt'].format(i))
+        rx['show'] = ''.join(u) + str(x)
+    return rxs
+
+
+
