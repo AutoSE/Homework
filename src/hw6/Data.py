@@ -9,22 +9,24 @@ class Data:
     def __init__(self, src):
         self.rows=[]
         self.cols=None
-        fun= lambda x: self.add(x)
-        if type(src)==str:
-            u.csv(src,fun)
+        if isinstance(src, str):
+            u.csv(src, self.add)
         else:
-            u.map(src,fun) if src else u.map({},fun)
+            for row in src:
+                self.add(row)
 
     def add(self,t):
         if self.cols:
-            t=t if "Row" in str(type(t)) else r.Row(t)
+            t=r.Row(t) if type(t)==list else t
             self.rows.append(t)
             self.cols.add(t)
         else:
             self.cols=c.Cols(t)
 
     def clone(self, init):
-        return self
+        data = Data([self.cols.names])
+        _ = list(map(data.add, init))
+        return data
 
     def stats(self, what, cols, nPlaces):
         def fun(k,col):
@@ -91,20 +93,23 @@ class Data:
         return node
 
     def sway(self, rows=None, min=None, cols=None, above=None):
-        rows= rows or self.rows
-        min = min or (len(rows)**float(g.the['min']))
-        cols = cols or self.cols.x
-        node = {'data': self.clone(rows)}
-        if len(rows)> 2*min:
-            left, right, node['A'], node['B'], node['mid'], _ = self.half(rows,cols,above)
-            if self.better(node['B'],node['A']):
-                left,right,node['A'],node['B'] = right,left,node['B'],node['A']
-            node['left'] = self.sway(left, min, cols, node['A'])
-        return node
+        data = self
+        def worker(rows, worse, evals0, above = None):
+            if len(rows) <= len(data.rows)**float(g.the['min']): 
+                return rows, u.many(worse, int(g.the['rest'])*len(rows)),evals0
+            else:
+                l,r,A,B,_,evals = self.half(rows, None, above)
+                if self.better(B,A):
+                    l,r,A,B = r,l,B,A
+                for row in r:
+                    worse.append(row)
+                return worker(l,worse,evals+evals0,A)
+        best, rest, evals = worker(data.rows,[],0)
+        return self.clone(best), self.clone(rest), evals
     
     def tree(self, rows = None , min = None, cols = None, above = None):
         rows = rows or self.rows
-        min  = min or len(rows)**g.the['min']
+        min  = min or len(rows)**float(g.the['min'])
         cols = cols or self.cols.x
         node = { 'data' : self.clone(rows) }
         if len(rows) >= 2*min:
@@ -112,3 +117,96 @@ class Data:
             node['left']  = self.tree(left,  min, cols, node['A'])
             node['right'] = self.tree(right, min, cols, node['B'])
         return node
+    
+    def showRule(self, rule):
+        def pretty(range):
+            return range['lo'] if range['lo']==range['hi'] else [range['lo'], range['hi']]
+        def merge(t0):
+            t,j=[],1
+            while j<len(t0):
+                left=t0[j-1]
+                if j<len(t0):
+                    right=t0[j]
+                else:
+                    right=None
+                if right and left['hi'] == right['lo']:
+                    left['hi'] = right['hi']
+                    j=j+1
+                t.append({'lo':left['lo'], 'hi':left['hi']})
+                j=j+1
+            return t if len(t0)==len(t) else merge(t) 
+        def merges(attr, ranges):
+            return list(map(pretty,merge(sorted(ranges,key=itemgetter('lo'))))),attr
+        return u.kapd(rule,merges)
+
+
+    def firstN(self, sorted_ranges, scoreFun):
+        print()
+        for r in sorted_ranges:
+            print(r['range']['txt'], r['range']['lo'], r['range']['hi'], u.rnd(r['val']), dict(r['range']['y'].has))
+        first = sorted_ranges[0]['val']
+        def useful(range):
+            if range['val'] > 0.05 and range['val'] > first / 10:
+                return range
+        sorted_ranges = [s for s in sorted_ranges if useful(s)]
+        most: int = -1
+        out: int = -1
+        for n in range(len(sorted_ranges)):
+            tmp, rule = scoreFun([r['range'] for r in sorted_ranges[:n+1]])
+            if tmp is not None and tmp > most:
+                out, most = rule, tmp
+        return out, most
+
+    def betters(self,n):
+        tmp=sorted(self.rows, key=lambda row: self.better(row, self.rows[self.rows.index(row)-1]))
+        return  n and tmp[0:n], tmp[n+1:]  or tmp
+
+    def RULE(self, ranges, maxSize):
+        t={}
+        for range in ranges:
+            t[range['txt']]= t.get(range['txt']) or []
+            t[range['txt']].append({'lo' : range['lo'],'hi' : range['hi'],'at':range['at']})
+        return u.prune(t, maxSize)
+
+    def xpln(self,best,rest):
+        tmp,maxSizes = [],{}
+        def v(has):
+            return u.value(has, len(best.rows), len(rest.rows), "best")
+        def score(ranges):
+            rule = self.RULE(ranges,maxSizes)
+            if rule:
+                print(self.showRule(rule))
+                bestr= self.selects(rule, best.rows)
+                restr= self.selects(rule, rest.rows)
+                if len(bestr) + len(restr) > 0: 
+                    return v({'best': len(bestr), 'rest':len(restr)}),rule
+        for ranges in u.bins(self.cols.x,{'best':best.rows, 'rest':rest.rows}):
+            maxSizes[ranges[1]['txt']] = len(ranges)
+            print("")
+            for range in ranges:
+                print(range['txt'], range['lo'], range['hi'])
+                tmp.append({'range':range, 'max':len(ranges),'val': v(range['y'].has)})
+        rule,most=self.firstN(sorted(tmp, key=itemgetter('val')),score)
+        return rule,most
+
+    def selects(self, rule, rows):
+        def disjunction(ranges, row):
+            for range in ranges:
+                lo, hi, at = range['lo'], range['hi'], range['at']
+                x = row.cells[at]
+                if x == "?":
+                    return True
+                if lo == hi and lo == x:
+                    return True
+                if lo <= x and x < hi:
+                    return True
+            return False
+        def conjunction(row):
+            for ranges in rule.values():
+                if not disjunction(ranges, row):
+                    return False
+            return True
+        def function(r):
+            if conjunction(r):
+                return r
+        return list(map(function, rows))

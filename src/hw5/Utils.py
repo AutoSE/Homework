@@ -41,8 +41,8 @@ def oo(t):
     d = t.__dict__
     d['a'] = t.__class__.__name__
     d['id'] = id(t)
-    d = dict(sorted(d.items()))
-    print(d)
+    #d = dict(sorted(d.items()))
+    print(dict(sorted(d.items())))
 
 def coerce(s):
     if s=='true' or s=='True':
@@ -113,7 +113,7 @@ def show(node, what, cols, nPlaces, lvl =0):
 
 
 def merge(col1,col2):
-  new = copy(col1)
+  new = copy.deepcopy(col1)
   if isinstance(col1, Sym):
       for n in col2.has:
         new.add(n)
@@ -169,7 +169,7 @@ def cliffsDelta(ns1,ns2):
                 gt = gt + 1
             if x < y:
                 lt = lt + 1
-    return abs(lt - gt)/n > c.the['cliffs']
+    return abs(lt - gt)/n > float(c.the['cliffs'])
 
 def showTree(tree, what, cols, nPlaces, lvl = 0):
   if tree:

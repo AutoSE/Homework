@@ -3,26 +3,18 @@ import Utils as u
 import cli as g
 
 class Num:
-    def __init__(self, at=None, txt=None):
-        self.at, self.txt = at if at else 0, txt if txt else ""
+    def __init__(self, t=None):
         self.n, self.mu, self.m2 = 0,0,0
-        self.mu=0
-        self.n=0
-        self.lo, self.hi = float("inf"), float("-inf")
-        self.w = -1 if "-" in self.txt else 1 
-        self.has = {}
+        self.sd=0
+        for w in t or []:
+            self.add(w)
 
     def add(self,n):
-        if n != '?':
-            n=float(n)
-            self.n = self.n + 1
-            if self.n <= g.the['Max']:
-                self.has[n]= n
-            d = n - self.mu
-            self.mu = self.mu + d/self.n
-            self.m2 = self.m2 + d*(n-self.mu)
-            self.lo = min(n, self.lo)
-            self.hi = max(n, self.hi)
+        self.n+= 1
+        d=n -self.mu
+        self.mu=self.mu+(d/self.n)
+        self.m2=self.m2+(d*(n-self.mu))
+        self.sd= 0 if self.n<2 else (self.m2/(self.n-1))**0.5
 
     def mid(self):
         return self.mu
